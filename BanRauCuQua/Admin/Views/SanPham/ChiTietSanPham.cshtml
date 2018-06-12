@@ -1,0 +1,71 @@
+﻿
+@model Admin.Models.view1
+@{
+    ViewBag.Title = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section id="SPChiTiet" class="container">
+    <div class="col-sm-3">
+        <div class="left-sidebar">
+            <h2 style="display:block">Loại mặt hàng</h2>
+            @Html.Action("DanhMucSanPham", "SanPham")
+            <div class="shipping text-center">
+                <!--shipping-->
+                <img src="images/home/shipping.jpg" alt="" />
+            </div><!--/shipping-->
+           
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <h2 class="title text-center">SẢN PHẨM</h2>
+        <div class="ChiTiet">
+            <div class="ChiTietAnh">
+                <img src="@Url.Content("~/Content/images/sanpham/" +Model.Anh)" alt="" width="260" height="300" />
+                @*<a href="@Url.Action("Delete","Home", new { @masach=@Model.MaSach})">Xoá sản phẩm</a>*@
+            </div>
+            <div class="ChiTietThongTin">
+                <p><span style="font-size:25px;color: brown"> @Model.TenSP</span></p>
+                <p>@Model.MoTa</p>
+                <h3>Giá sản phẩm: @Model.GiaBan VNĐ/@Model.TenDV</h3>
+                <br />
+                @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSP = Model.MaSP, @strURL = Request.Url.ToString() }))
+                {
+                    <button type="submit" value="" id="btnSubmit" class="btn btn-success">Thêm vào giỏ hàng</button>
+                }
+            </div>
+            <div id="fb-root"></div>
+            <script>
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.12&appId=617064218632936&autoLogAppEvents=1';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+            <div class="fb-comments" data-href="https://CleanFruits.vn" data-width="800" data-numposts="5"></div>
+        </div>
+    </div>
+</section>
+<style>
+    .ChiTiet {
+        width: auto;
+        height: auto;
+        margin: 10px;
+        /*background-color: #E2DFDF;*/
+    }
+
+    .ChiTietAnh {
+        float: left;
+        padding: 5px;
+        width: 40%;
+        height: auto;
+    }
+
+    .ChiTietThongTin {
+        float: right;
+        padding: 5px;
+        width: 60%;
+        height: auto;
+    }
+</style>

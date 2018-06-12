@@ -1,0 +1,87 @@
+﻿@model Admin.Models.SanPham
+
+@{
+    ViewBag.Title = "Thông tin sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thông tin chi tiết sản phẩm</h2>
+
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenSP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SLTon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SLTon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GiaBan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GiaBan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Anh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Anh)
+        </dd>
+
+        <dt>
+            Tên đơn vị
+            @*@Html.DisplayNameFor(model => model.DonVi.TenDV)*@
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonVi.TenDV)
+        </dd>
+
+        <dt>
+            Tên loại
+            @*@Html.DisplayNameFor(model => model.Loai.TenLoai)*@
+        </dt>
+
+        <dd>            
+            @Html.DisplayFor(model => model.Loai.TenLoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NhaCungCap.TenNCC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhaCungCap.TenNCC)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@Html.ActionLink("Sửa", "Sua", new { @MaSP = Model.MaSP })*@
+    <button type="button" class="btn btn-warning"  onclick="location.href='@Url.Action("Sua", "QuanLySanPham")'" >Sửa</button>
+    @*@Html.ActionLink("Trở về", "Index")*@
+    <button type="button" class="btn btn-default"  onclick="location.href='@Url.Action("Index", "QuanLySanPham")'" >Trở về</button>
+</p>

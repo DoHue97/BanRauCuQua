@@ -1,0 +1,143 @@
+﻿@using Admin.Models
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title> @ViewBag.Title | Cửa hàng bán hoa quả</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet">
+    <link href="~/Content/css/prettyPhoto.css" rel="stylesheet">
+    <link href="~/Content/css/price-range.css" rel="stylesheet">
+    <link href="~/Content/css/animate.css" rel="stylesheet">
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+    <link href="~/Content/css/responsive.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+</head><!--/head-->
+<body>
+    <div class="container">
+        <header id="header">
+            <!--header-->
+            <div class="header_top">
+                <!--header_top-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="contactinfo">
+                                <ul class="nav nav-pills">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-phone"> </i> 01653094775
+                                        </a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-envelope"></i> cleanfruit@gmail.com </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="social-icons pull-right">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/header_top-->
+
+            <div class="header-middle">
+                <!--header-middle-->
+                <div class="container">
+                    <div class="row" style="border:none">
+                        @*<div class="col-sm-4">
+                                <div class="logo pull-left">
+
+                                </div>
+
+                            </div>*@
+                        <div class="col-sm-8">
+                            <div class="shop-menu pull-left">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="@Url.Action("Index", "Home")"><i class="fa fa-home "></i> Trang chủ</a></li>
+                                    <li><a href="@Url.Action("GioHang", "GioHang")"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                    @{
+                                        if (Session["Admin"] != null)
+                                        {
+                                            TaiKhoanAdmin kh = (TaiKhoanAdmin)Session["Admin"];
+                                            <li><a> </a> <i class="fa fa-user"> @Html.ActionLink(kh.HoTen, "Thongtinadmin", "TaiKhoanAdmin", new { id = kh.MaAdmin })</i></li>
+                                            <li><a> </a> <i class="fa fa-times-circle"> @Html.ActionLink("Đăng xuất", "DangXuat", "Home")</i></li>
+
+                                        }
+                                        else
+                                        if (Session["TaiKhoan"] != null)
+                                        {
+                                            KhachHang kh = (KhachHang)Session["TaiKhoan"];
+                                            <li><a> </a> <i class="fa fa-user"> @Html.ActionLink(kh.TenKH, "Thongtinkhachhang", "KhachHang", new { id = kh.MaKH })</i></li>
+                                            <li><a> </a> <i class="fa fa-times-circle"> @Html.ActionLink("Đăng xuất", "DangXuat", "Home")</i></li>
+
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@Url.Action("DangKy", "NguoiDung")"><i class="fa fa-user"></i> Đăng ký</a></li>
+                                            <li><a href="@Url.Action("DangNhap", "NguoiDung")"><i class="fa fa-lock"></i> Đăng nhập</a></li>
+                                        }
+                                    }
+                                    @*<li><a href="@Url.Action("DangKy","NguoiDung")"><i class="fa fa-user"></i> Đăng ký</a></li>*@
+                                    @*<li><a href="@Url.Action("DangNhap", "NguoiDung")"><i class="fa fa-lock"></i> Đăng nhập</a></li>*@
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="search_box pull-right" style="width:100%">
+                                <div id="txtTimKiem">
+                                    @using (Html.BeginForm("KetQua", "TimKiem", FormMethod.Post))
+                                    {
+                                        @Html.TextBox("txtTimKiem", "", htmlAttributes: new { @class = "TextBoxTimKiem", @placeholder = "Nhập vào từ khóa cần tìm ..." })
+                                        <button type="submit" class="btn btn-default">Tìm kiếm </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/header-middle-->
+        </header><!--/header-->
+    </div>
+    <section>
+        <div class="container">
+            @RenderBody()
+            <footer id="footer" style="margin-top:100px">
+                <!--Footer-->
+
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <p style="text-align:center">Copyright © 2013 CLEAN FRUITS - STORE Inc. All rights reserved.</p>
+                            @*<p class="pull-right">Designed by Nguyet - Hue</p>*@
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </section>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <style>
+        .TextBoxTimKiem {
+            width: 70%;
+        }
+    </style>
+</body>
+</html>

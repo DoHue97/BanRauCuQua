@@ -1,0 +1,93 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model IPagedList<Admin.Models.view1>
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <link href="~/Content/css/main.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <h2 style="margin-left:2%;font-weight:normal;color:black">Kết quả tìm kiếm: @ViewBag.ThongBao</h2>
+</div>
+
+<section>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="left-sidebar">
+                <h2 style="display:block">Loại mặt hàng</h2>
+                @Html.Action("DanhMucSanPham", "SanPham")
+                <div class="shipping text-center">
+                    <!--shipping-->
+                    <img src="images/home/shipping.jpg" alt="" />
+                </div><!--/shipping-->
+               
+            </div>
+        </div>
+
+        <div class="col-sm-9">
+            <h2 class="title text-center">SÁCH</h2>
+            @{
+                int i = 0;
+                foreach (var item in Model)
+                {
+                    i++;
+
+                    <div class="SanPham" style="float:left">
+                        <div class="hinhanh">
+                            <a href="@Url.Action("ChiTietSanPham","SanPham",new { @masp = item.MaSP})">
+                                <img src="@Url.Content("~/Content/images/sanpham/"+item.Anh)" width="190" height="230" />
+                            </a>
+                        </div>
+                        <div class="Ten" title="@item.TenSP">
+                            @item.TenSP
+                            <br />
+                            <span class="Gia"> Giá bán: @item.GiaBan/@item.TenDV</span><br />
+                            @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSP = item.MaSP, @strURL = Request.Url.ToString() }))
+                            {
+                                <button type="submit" value="" id="btnSubmit" class="btn btn-success">Thêm vào giỏ hàng</button>
+                            }
+                        </div>
+                    </div>
+                }
+                <br />
+                <div style="clear:both"></div>
+                <div class="trang">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/ @Model.PageCount </div>
+                <div class="trang">
+                    @Html.PagedListPager(Model, page => Url.Action("KetQua", "TimKiem", new { @page = page }))
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<style>
+    .SanPham {
+        width: auto;
+        height: auto;
+    }
+
+    .hinhanh {
+        width: auto;
+        height: auto;
+        padding: 5px;
+        clear: both;
+    }
+
+    .Ten {
+        width: 200px;
+        height: 100px;
+        font-size: 13px;
+        text-align: center;
+        color: grey;
+    }
+
+    .Gia {
+        color: coral;
+        font-size: 20px;
+    }
+
+    .trang {
+        clear: both;
+    }
+</style>

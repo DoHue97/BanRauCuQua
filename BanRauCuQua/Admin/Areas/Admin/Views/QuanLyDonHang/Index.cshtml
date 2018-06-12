@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Admin.Models.DonHang>
+
+@{
+    ViewBag.Title = "Quản lý đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh sách đơn hàng</h2>
+
+<p>
+    @*@Html.ActionLink("Thêm mới đơn hàng", "ThemMoi")*@
+    @Ajax.ActionLink("Thêm mới đơn hàng","ThemMoi", new AjaxOptions { UpdateTargetId= "page - wrapper"})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().MaDH)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().NgayDat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().NgayGiao)
+        </th>
+        <th>            
+            @Html.DisplayNameFor(model => model.First().DaThanhToan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().KhachHang.TenKH)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaDH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayDat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayGiao)
+            </td>
+            <td>
+                @if (item.DaThanhToan == true)
+                {
+                    @Html.Label("Đã thanh toán")
+                }
+                else
+                {
+                    @Html.Label("Chưa thanh toán")
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KhachHang.TenKH)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Sua", new { @MaDH = item.MaDH })     |
+                @Html.ActionLink("Xoá", "Xoa", new { @Madh = item.MaDH })      |
+                @Html.ActionLink("Xem đơn hàng", "HienThi", new { @MaDH = item.MaDH })
+            </td>
+        </tr>
+    }
+
+</table>

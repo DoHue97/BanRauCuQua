@@ -1,0 +1,30 @@
+﻿@using Admin.Models
+@model List<Loai>
+
+@foreach (var item in Model)
+{
+    //xét mã loại khi bấm vào
+    <li>
+        <a href="@Url.Action("SanPhamTheoDanhMuc","QuanLySanPham",new { @maLoai= item.MaLoai})">
+            @item.TenLoai
+        </a>
+    </li>
+}
+<style>
+    li {
+        list-style: none;
+        margin: 10px;
+    }
+
+    a {
+        padding: 5px;
+        font-size: 15px;
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
+    }
+</style>
+
+
+

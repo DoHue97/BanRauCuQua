@@ -1,0 +1,164 @@
+﻿@using Admin.Models
+@using PagedList.Mvc
+@model PagedList.IPagedList<view1>
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section id="slider">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#slider-carousel" data-slide-to="1"></li>
+                    <li data-target="#slider-carousel" data-slide-to="2"></li>
+                </ol>
+
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <div class="col-sm-6">
+                            <h1><span>FRUITS CLEAN</span>-FRUITS STORE</h1>
+                            <h2>Rau củ quả tốt cho sức khoẻ</h2>
+                            <p style="width:420px">Hãy chăm sóc sức khoẻ của bạn và gia đình</p>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <img src="~/Content/images/slide/raucu.jpg" width="480" height="350" class="girl " alt="" />
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="col-sm-6">
+                            <h1><span>FRUITS CLEAN</span>-FRUITS STORE</h1>
+                            <h2>Rau củ quả tốt cho sức khoẻ</h2>
+                            <p style="width:420px">Hãy chăm sóc sức khoẻ của bạn và gia đình</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <img src="~/Content/images/slide/hoaqua.jpg" width="480" height="350" class="girl " alt="" />
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="col-sm-6">
+                            <h1><span>FRUITS CLEAN</span>-FRUITS STORE</h1>
+                            <h2>Rau củ quả tốt cho sức khoẻ</h2>
+                            <p style="width:420px">Hãy chăm sóc sức khoẻ của bạn và gia đình</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <img src="~/Content/images/slide/chanhvang.jpg" width="480" height="350" class="girl " alt="" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="left-sidebar">
+                <h2 style="display:block">Loại mặt hàng</h2>
+                @Html.Action("DanhMucSanPham", "SanPham")
+                <div class="shipping text-center">
+                    <!--shipping-->
+                    <img src="images/home/shipping.jpg" alt="" />
+                </div><!--/shipping-->          
+            </div>
+            <div style="height:20px;width:auto"></div>
+            @*<div class="left-sidebar">
+                <h2 style="display:block">Loại mặt hàng</h2>
+                @Html.Action("DanhMucSanPham", "SanPham")
+                <div class="shipping text-center">
+                    <!--shipping-->
+                    <img src="images/home/shipping.jpg" alt="" />
+                </div><!--/shipping-->
+            </div>*@
+        </div>
+       
+        <div class="col-sm-9">
+            <h2 class="title text-center">Sản phẩm</h2>
+            @{
+                int i = 0;
+                foreach (var item in Model)
+                {
+                    i++;
+                    <div class="SanPham" style="float:left">
+                        <div class="hinhanh"  title="@item.TenSP"> 
+                            <a href="@Url.Action("ChiTietSanPham","SanPham",new { @masp=item.MaSP})">
+                                <img src="@Url.Content("~/Content/images/sanpham/"+item.Anh)" width="190" height="210" />
+                            </a>
+                        </div>
+                        <div class="Ten">
+                            @item.TenSP
+                            <br />
+                            <span class="Gia"> Giá bán: @item.GiaBan/@item.TenDV</span> <br />
+                            @using (Html.BeginForm("ThemGioHang", "GioHang", new { @iMaSP = item.MaSP, @strURL = Request.Url.ToString() }))
+                            {
+                                <button type="submit" value="" id="btnSubmit" class="btn btn-success">Thêm vào giỏ hàng</button>
+                            }
+                        </div>
+                    </div>
+                }
+                <br />
+                <div style="clear:both"></div>
+                <div class="trang">Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount </div>
+                <div class="trang">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "Home", new { @page = page }))
+                </div>
+            }
+            <div id="fb-root"></div>
+            <script>
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.12&appId=617064218632936&autoLogAppEvents=1';
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+
+            <div class="fb-comments" data-href="https://CleanFruits.vn" data-width="800" data-numposts="5"></div>
+        </div>
+    </div>
+
+</section>
+<style>
+    .SanPham {
+        width: auto;
+        height: auto;
+    }
+
+    .hinhanh {
+        width: auto;
+        height: auto;
+        padding: 5px;
+        clear: both;
+    }
+
+    .Ten {
+        width: 200px;
+        height: 100px;
+        font-size: 13px;
+        text-align: center;
+        color: grey;
+    }
+
+    .Gia {
+        color: coral;
+        font-size: 20px;
+    }
+
+    .trang {
+        clear: both;
+    }
+</style>

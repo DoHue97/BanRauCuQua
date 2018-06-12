@@ -1,0 +1,91 @@
+﻿@model Admin.Models.DonHang
+
+@{
+    ViewBag.Title = "Thông tin đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thông tin đơn hàng</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayDat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayDat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayGiao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayGiao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DaThanhToan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DaThanhToan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KhachHang.TenKH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhachHang.TenKH)
+        </dd>
+
+    </dl>
+</div>
+
+<button class="pull-left" type="button" data-toggle="modal" data-target="#nhomSanPham@(Model.MaDH)"><span class="glyphicon glyphicon-eye-open"></span>Xem chi tiết đặt hàng</button>
+   &nbsp;&nbsp;&nbsp; <button type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "QuanLySanPham")'">Trở về</button>
+<div class="container">
+    <div class="modal fade" id="nhomSanPham@(Model.MaDH)" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background:#3b5999;color:#ffffff">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title text-center" id="myModalLabel">
+                        Chi tiết đặt hàng
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Hình</th>
+                                <th width="150px">Tên sản phẩm</th>
+                                <th>Số lượng</th>
+                                <th>Đơn giá</th>
+                                <th width="150px">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (Admin.Models.ChiTietDonHang itemN in Model.ChiTietDonHangs)
+                            {
+                                <tr role="row" class="odd">
+                                    <td style="vertical-align:middle" class="sorting_1 text-center"><img src="~/Content/images/sanpham/@itemN.SanPham.Anh" width="90" height="70" /></td>
+                                    <td style="vertical-align:middle">@itemN.SanPham.TenSP</td>
+                                    <td style="vertical-align:middle">@itemN.SoLuong</td>
+                                    <td style="vertical-align:middle">@itemN.DonGia VNĐ </td>
+                                    <td style="vertical-align:middle">@itemN.ThanhTien VNĐ </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div><
+        </div>
+    </div>
+</div>

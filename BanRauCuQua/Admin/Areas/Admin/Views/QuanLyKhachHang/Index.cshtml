@@ -1,0 +1,71 @@
+﻿@using PagedList.Mvc
+@using Admin.Models
+@model PagedList.IPagedList<KhachHang>
+
+@{
+    ViewBag.Title = "Quản lý khách hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h2>Danh sách khách hàng</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "ThemMoi")
+</p>
+<table class="table">
+    <tr>
+        <th width="20%">
+            @Html.DisplayNameFor(model => model.First().TenKH)
+        </th>
+
+        <th width="15%">
+            @Html.DisplayNameFor(model => model.First().DiaChi)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.First().DienThoai)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.First().TenDN)
+        </th>
+        <th width="10%">
+            @Html.DisplayNameFor(model => model.First().MatKhau)
+        </th>
+        <th width="15%">
+            @Html.DisplayNameFor(model => model.First().Email)
+        </th>
+        <th width="15%">Hành động</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenKH)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenDN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MatKhau)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Sua", new { @Makh = item.MaKH }) |
+                @Html.ActionLink("Xoá", "Xoa", new { @Makh = item.MaKH })
+            </td>
+        </tr>
+    }
+</table>
+<div style="clear:both"></div>
+<div class="trang">Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount </div>
+<div class="trang">
+    @Html.PagedListPager(Model, page => Url.Action("Index", "QuanLyKhachHang", new { @page = page }))
+</div>
